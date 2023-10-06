@@ -74,7 +74,12 @@ dependencies {
 
     // Support for Java 8 features
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"
 
+    // FOR NAVIGATION
+    def nav_version = "2.5.1"
+    //noinspection GradleDependency
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     implementation 'io.github.raamcosta.compose-destinations:animations-core:1.8.33-beta'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.8.33-beta'
