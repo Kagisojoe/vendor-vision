@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.vendorvision.R
+import com.example.vendorvision.destinations.OMHomeDestination
+import com.example.vendorvision.destinations.OMLoginDestination
 import com.example.vendorvision.destinations.TrendAnalysisDestination
 import com.example.vendorvision.destinations.VendorManagementDestination
 import com.example.vendorvision.ui.navbar.NavBar
@@ -84,6 +86,11 @@ fun SideMenu(
                 ),
                 onItemClick = {
                     when(it.id){
+                        "home" -> {
+                            navigator.navigate(
+                                OMHomeDestination
+                            )
+                        }
                         "vendors" -> {
                             navigator.navigate(
                                 VendorManagementDestination
@@ -97,6 +104,25 @@ fun SideMenu(
                     }
                 }
             )
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        navigator.navigate(
+                            OMLoginDestination
+                        )
+                    }
+                    .padding(16.dp)
+            ){
+                Image(painter = painterResource(R.drawable.logout), contentDescription = "icon" )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "Logout",
+                    modifier = Modifier.weight(1f),
+                    style = TextStyle(fontSize =18.sp)
+                )
+            }
         },
         content = {
             content(it)

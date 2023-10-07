@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.vendorvision.destinations.VendorRequestsDestination
 import com.example.vendorvision.presentation.GradientButton
 import com.example.vendorvision.presentation.StandardButton
 import com.example.vendorvision.ui.sidemenu.SideMenu
@@ -56,7 +57,9 @@ fun VendorManagement(
                     StandardButton(
                         title = "Existing Vendors",
                         modifier = Modifier.clickable {
-
+                              navigator.navigate(
+                                  VendorRequestsDestination
+                              )
                         },
                         width = 330.dp,
                         height = 60.dp

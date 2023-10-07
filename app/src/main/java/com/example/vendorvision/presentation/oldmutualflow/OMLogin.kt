@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.vendorvision.R
+import com.example.vendorvision.destinations.OMHomeDestination
 import com.example.vendorvision.destinations.TrendAnalysisDestination
 import com.example.vendorvision.presentation.GradientButton
 import com.example.vendorvision.presentation.StandardButton
@@ -106,7 +107,7 @@ fun OMLogin(
                 title = "Login",
                 modifier = Modifier.clickable {
                     navigator.navigate(
-                        TrendAnalysisDestination
+                        OMHomeDestination
                     )
                 }
             )
