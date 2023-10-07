@@ -8,12 +8,9 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
@@ -35,21 +32,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.vendorvision.destinations.CompanyInformationDestination
+import com.example.vendorvision.destinations.ServiceRatesDestination
 import com.example.vendorvision.presentation.StandardButton
+import com.example.vendorvision.ui.components.reusableFormTextField
+import com.example.vendorvision.ui.sidemenu.ScaffoldBack
 import com.example.vendorvision.ui.theme.backgroundLime
 import com.example.vendorvision.ui.theme.lightGreen
 import com.example.vendorvision.ui.theme.tealGreen
 import com.example.vendorvision.viewmodels.VendorSigUpViewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.util.*
 
-@Preview
+@Destination
 @Composable
 fun Documents(
-    vendorSigUpViewModel: VendorSigUpViewModel = hiltViewModel()
+    vendorSigUpViewModel: VendorSigUpViewModel,
+    navigator: DestinationsNavigator
 ){
 
     val context = LocalContext.current
@@ -97,197 +101,207 @@ fun Documents(
         Log.d("file path", file.toString())
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        lightGreen,
-                        lightGreen,
-                        tealGreen
-                    )
-                )
-            )
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 15.dp, vertical = 20.dp),
-    ){
-        Text(text = "Company Documents", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
-        Column(
-            verticalArrangement = Arrangement.spacedBy(3.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Spacer(modifier = Modifier.padding(5.dp))
-            Title(title = "BEEE")
-            OutlinedButton(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
-                ),
-                border = BorderStroke(1.dp, Color.White),
-                shape = RoundedCornerShape(15.dp),
+    ScaffoldBack(
+        content = {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                onClick = {
-                    launcherPersonal.launch(documents)
-
-                }) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Text(
-                        text = "upload document", fontSize = 12.sp,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f),
-                        color = Color.White
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                lightGreen,
+                                lightGreen,
+                                tealGreen
+                            )
+                        )
                     )
-
-                    Icon(
-                        imageVector = Icons.Outlined.IosShare,
-                        contentDescription = "Toggle drawer",
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 15.dp, vertical = 20.dp),
+            ){
+                Text(text = "Company Documents", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(3.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Spacer(modifier = Modifier.padding(5.dp))
+                    Title(title = "BEEE")
+                    OutlinedButton(
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Transparent
+                        ),
+                        border = BorderStroke(1.dp, Color.White),
+                        shape = RoundedCornerShape(15.dp),
                         modifier = Modifier
-                            .padding(0.dp)
-                            .size(20.dp),
-                        tint = Color.White
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        onClick = {
+                            launcherPersonal.launch(documents)
+
+                        }) {
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+                            Text(
+                                text = "upload document", fontSize = 12.sp,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f),
+                                color = Color.White
+                            )
+
+                            Icon(
+                                imageVector = Icons.Outlined.IosShare,
+                                contentDescription = "Toggle drawer",
+                                modifier = Modifier
+                                    .padding(0.dp)
+                                    .size(20.dp),
+                                tint = Color.White
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(5.dp))
+                    Title(title = "Tax Certificate")
+                    OutlinedButton(
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Transparent
+                        ),
+                        border = BorderStroke(1.dp, Color.White),
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        onClick = {
+                            launcherPersonal.launch(documents)
+
+                        }) {
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+                            Text(
+                                text = "upload document", fontSize = 12.sp,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f),
+                                color = Color.White
+                            )
+
+                            Icon(
+                                imageVector = Icons.Outlined.IosShare,
+                                contentDescription = "Toggle drawer",
+                                modifier = Modifier
+                                    .padding(0.dp)
+                                    .size(20.dp),
+                                tint = Color.White
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(5.dp))
+                    Title(title = "CIPC Certificate")
+                    OutlinedButton(
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Transparent
+                        ),
+                        border = BorderStroke(1.dp, Color.White),
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        onClick = {
+                            launcherPersonal.launch(documents)
+
+                        }) {
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+                            Text(
+                                text = "upload document", fontSize = 12.sp,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f),
+                                color = Color.White
+                            )
+
+                            Icon(
+                                imageVector = Icons.Outlined.IosShare,
+                                contentDescription = "Toggle drawer",
+                                modifier = Modifier
+                                    .padding(0.dp)
+                                    .size(20.dp),
+                                tint = Color.White
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(5.dp))
+                    Title(title = "Other")
+                    OutlinedButton(
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Transparent
+                        ),
+                        border = BorderStroke(1.dp, Color.White),
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        onClick = {
+                            launcherPersonal.launch(documents)
+
+                        }) {
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+                            Text(
+                                text = "upload document", fontSize = 12.sp,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f),
+                                color = Color.White
+                            )
+
+                            Icon(
+                                imageVector = Icons.Outlined.IosShare,
+                                contentDescription = "Toggle drawer",
+                                modifier = Modifier
+                                    .padding(0.dp)
+                                    .size(20.dp),
+                                tint = Color.White
+                            )
+                        }
+                    }
+                }
+                Spacer(Modifier.weight(1f))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ){
+                    StandardButton(
+                        title = "Next",
+                        width = 150.dp,
+                        height = 50.dp,
+                        modifier = Modifier.clickable {
+                            navigator.navigate(
+                                ServiceRatesDestination
+                            )
+                        }
                     )
                 }
             }
-            Spacer(modifier = Modifier.padding(5.dp))
-            Title(title = "Tax Certificate")
-            OutlinedButton(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
-                ),
-                border = BorderStroke(1.dp, Color.White),
-                shape = RoundedCornerShape(15.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                onClick = {
-                    launcherPersonal.launch(documents)
-
-                }) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Text(
-                        text = "upload document", fontSize = 12.sp,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f),
-                        color = Color.White
-                    )
-
-                    Icon(
-                        imageVector = Icons.Outlined.IosShare,
-                        contentDescription = "Toggle drawer",
-                        modifier = Modifier
-                            .padding(0.dp)
-                            .size(20.dp),
-                        tint = Color.White
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.padding(5.dp))
-            Title(title = "CIPC Certificate")
-            OutlinedButton(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
-                ),
-                border = BorderStroke(1.dp, Color.White),
-                shape = RoundedCornerShape(15.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                onClick = {
-                    launcherPersonal.launch(documents)
-
-                }) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Text(
-                        text = "upload document", fontSize = 12.sp,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f),
-                        color = Color.White
-                    )
-
-                    Icon(
-                        imageVector = Icons.Outlined.IosShare,
-                        contentDescription = "Toggle drawer",
-                        modifier = Modifier
-                            .padding(0.dp)
-                            .size(20.dp),
-                        tint = Color.White
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.padding(5.dp))
-            Title(title = "Other")
-            OutlinedButton(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent
-                ),
-                border = BorderStroke(1.dp, Color.White),
-                shape = RoundedCornerShape(15.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                onClick = {
-                    launcherPersonal.launch(documents)
-
-                }) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    Text(
-                        text = "upload document", fontSize = 12.sp,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f),
-                        color = Color.White
-                    )
-
-                    Icon(
-                        imageVector = Icons.Outlined.IosShare,
-                        contentDescription = "Toggle drawer",
-                        modifier = Modifier
-                            .padding(0.dp)
-                            .size(20.dp),
-                        tint = Color.White
-                    )
-                }
-            }
-        }
-        Spacer(Modifier.weight(1f))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ){
-            StandardButton(
-                title = "Next",
-                width = 150.dp,
-                height = 50.dp
-            )
-        }
-    }
+        } ,
+        navigator
+    )
 }

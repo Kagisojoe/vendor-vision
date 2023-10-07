@@ -28,9 +28,13 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.rememberNavHostEngine
 import com.amplifyframework.datastore.generated.model.AmplifyModelProvider;
+import com.example.vendorvision.viewmodels.VendorSigUpViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.dependency
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +59,17 @@ class MainActivity : ComponentActivity() {
                         DestinationsNavHost(
                             navGraph = NavGraphs.root,
                             navController = navController,
-                            engine = rememberNavHostEngine()
+                            engine = rememberNavHostEngine(),
+                            dependenciesContainerBuilder = {
+                                //dependency(hiltViewModel<OTPViewModel>())
+
+                                dependency(NavGraphs.root) {
+                                    val parentEntry = remember(navBackStackEntry) {
+                                        navController.getBackStackEntry(NavGraphs.root.route)
+                                    }
+                                    hiltViewModel<VendorSigUpViewModel>(parentEntry)
+                                }
+                            }
                         )
                     }
                 }

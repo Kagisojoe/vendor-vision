@@ -2,10 +2,12 @@ package com.example.vendorvision.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -20,27 +22,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.example.vendorvision.R
+import com.example.vendorvision.destinations.OMLoginDestination
+import com.example.vendorvision.destinations.PersonalInformationDestination
+import com.example.vendorvision.destinations.VendorSignUpDestination
 import com.example.vendorvision.ui.theme.DarkGreen
 import com.example.vendorvision.ui.theme.backgroundLime
 import com.example.vendorvision.ui.theme.lightGreen
 import com.example.vendorvision.ui.theme.tealGreen
+import com.example.vendorvision.viewmodels.VendorSigUpViewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.launch
 
-@Preview
+@RootNavGraph(start = true)
+@Destination
 @Composable
 fun LandingScreen(
-
+    navigator: DestinationsNavigator,
+    vendorSigUpViewModel: VendorSigUpViewModel
 ){
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        lightGreen,
-                        lightGreen,
-                        tealGreen
-                    )
-                )
+                color = backgroundLime
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -59,7 +65,7 @@ fun LandingScreen(
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text("Sign in as",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Start,
@@ -67,11 +73,21 @@ fun LandingScreen(
         )
         Spacer(modifier = Modifier.height(10.dp))
         GradientButton(
-            title = "Vendor"
+            title = "Vendor",
+            modifier = Modifier.clickable {
+                navigator.navigate(
+                    VendorSignUpDestination
+                )
+            }
         )
         Spacer(modifier = Modifier.height(30.dp))
         StandardButton(
-            title = "Old Mutual"
+            title = "Old Mutual",
+            modifier = Modifier.clickable {
+                navigator.navigate(
+                    OMLoginDestination
+                )
+            }
         )
         Spacer(Modifier.weight(1f))
         Row(
@@ -94,7 +110,8 @@ fun LandingScreen(
 fun GradientButton(
     title: String,
     width: Dp = 230.dp,
-    height: Dp = 40.dp
+    height: Dp = 40.dp,
+    modifier: Modifier
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -114,6 +131,7 @@ fun GradientButton(
                     12.dp
                 )
             )
+            .then(modifier)
     ) {
         Text(
             text = title,
@@ -126,7 +144,8 @@ fun GradientButton(
 fun StandardButton(
     title: String,
     width: Dp = 230.dp,
-    height: Dp = 40.dp
+    height: Dp = 40.dp,
+    modifier: Modifier
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -140,6 +159,7 @@ fun StandardButton(
                     12.dp
                 )
             )
+            .then(modifier)
     ) {
         Text(
             text = title,

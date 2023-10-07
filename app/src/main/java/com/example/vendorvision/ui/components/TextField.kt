@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,7 +33,8 @@ fun reusableFormTextField(
     singleLine: Boolean,
     width: Dp,
     height: Dp,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    color: Color = Morning
 ){
     val focusManager = LocalFocusManager.current
     Column() {
@@ -46,12 +48,12 @@ fun reusableFormTextField(
             shape = RoundedCornerShape(5.dp),
             singleLine = singleLine,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                textColor = Morning,
-                placeholderColor =Morning,
-                focusedBorderColor = Morning,
-                unfocusedBorderColor = Morning,
-                unfocusedLabelColor = Morning,
-                disabledPlaceholderColor = Morning
+                textColor = color,
+                placeholderColor = color,
+                focusedBorderColor =  color,
+                unfocusedBorderColor = color,
+                unfocusedLabelColor = color,
+                disabledPlaceholderColor = color
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next),

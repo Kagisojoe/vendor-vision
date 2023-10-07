@@ -9,3 +9,27 @@ type Todo @model {
   description: String
 }
 
+type ServiceRates @model{
+  service: String!
+  rate: String!
+}
+
+type Vendor @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  companyName: String!
+  companyEmail: String!
+  companyAddress: String!
+  companyNumber: String!
+  companyCountry: String!
+  companyCity: String!
+  postalCode: String!
+  beeeCertificate: String!
+  taxCertificate: String!
+  cipcCertificate: String!
+  otherCertificate: String!
+  services: [ServiceRates!]!
+}

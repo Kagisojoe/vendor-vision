@@ -21,17 +21,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.vendorvision.R
+import com.example.vendorvision.destinations.TrendAnalysisDestination
+import com.example.vendorvision.destinations.VendorManagementDestination
 import com.example.vendorvision.ui.navbar.NavBar
 import com.example.vendorvision.ui.theme.DarkGreen
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
-@RootNavGraph(start = true)
-@Destination
+
 @Composable
-fun SideMenu(){
+fun SideMenu(
+    content: @Composable (contentPadding: PaddingValues) -> Unit,
+    navigator: DestinationsNavigator
+){
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
@@ -57,6 +62,11 @@ fun SideMenu(){
             DrawerBody(
                 items = listOf(
                     MenuItem(
+                        id = "home",
+                        title = "Home",
+                        icon = R.drawable.home
+                    ),
+                    MenuItem(
                         id = "vendors",
                         title = "Vendors",
                         icon = R.drawable.shop
@@ -73,17 +83,25 @@ fun SideMenu(){
                     )
                 ),
                 onItemClick = {
-
+                    when(it.id){
+                        "vendors" -> {
+                            navigator.navigate(
+                                VendorManagementDestination
+                            )
+                        }
+                        "analytics" -> {
+                            navigator.navigate(
+                                TrendAnalysisDestination
+                            )
+                        }
+                    }
                 }
             )
+        },
+        content = {
+            content(it)
         }
-    ) {
-        Column(
-            modifier = Modifier.padding(it)
-        ) {
-
-        }
-    }
+    )
 }
 
 @Composable

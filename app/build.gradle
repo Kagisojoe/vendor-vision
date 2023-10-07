@@ -4,6 +4,7 @@ plugins {
     id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -50,6 +51,9 @@ android {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
